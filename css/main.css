@@ -48,7 +48,7 @@ p {
     border-radius: 10px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .converter_body {
     width: 95%;
     height: auto;
