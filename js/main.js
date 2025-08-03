@@ -10,9 +10,13 @@ function checkForm(event){
         fail = "Ошибка: введите сумму";
     else if(from_currency === "Валюта" || to_currency === "Валюта")
         fail = "Ошибка: выберите валюту";
+
+    const errorElement = document.getElementById('error');
+
     if(fail != "")
-        document.getElementById('error').innerHTML = fail;
+        errorElement.innerHTML = fail;
     else {
+        errorElement.innerHTML = "";
         convert(amount, from_currency, to_currency);
     }
 }
