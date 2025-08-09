@@ -1,0 +1,28 @@
+# version: "3.8"
+
+services:
+  backend:
+    build: ./currency-converter_backend
+    ports:
+    - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build: ./currency-converter_frontend
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
