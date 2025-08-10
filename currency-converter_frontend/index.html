@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер валют | aqua430 or zestix</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <h1>КОНВЕРТЕР ВАЛЮТ</h1>
+  <div class="converter_body">
+    <form id="converter_form" method="post">
+      <input type="number" placeholder="Введите сумму" 
+      name="amount">
+      <select name="fromCurrency">
+        <option disabled selected>Валюта</option>
+        <option value="USD">Доллар(USD)</option>
+        <option value="RUB">Рубль(RUB)</option>
+        <option value="KZT">Тенге(KZT)</option>
+      </select>
+      <span>==></span>
+      <select name="toCurrency">
+        <option disabled selected>Валюта</option>
+        <option value="USD">Доллар(USD)</option>
+        <option value="RUB">Рубль(RUB)</option>
+        <option value="KZT">Тенге(KZT)</option>
+      </select><br><br>
+      <p>Результат: <span id="result"></span></p>
+      <div id="error" style="color: red"></div>
+      <button name="convertButton">Конвертировать</button>
+    </form>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
