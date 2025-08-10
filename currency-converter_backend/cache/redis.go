@@ -20,6 +20,7 @@ func InitRedis() {
 		log.Fatal("REDIS_URL не задан")
 	}
 
+	log.Printf("REDIS_URL='%s'\n", redisURL)
 	opt, err := redis.ParseURL(redisURL)
 	if err != nil {
 		log.Fatalf("Ошибка парсинга REDIS_URL: %v", err)
