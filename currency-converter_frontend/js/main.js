@@ -22,11 +22,13 @@ function checkForm(event){
 }
 
 function convert(amount, from, to) {
-    let rates = {
-        USD: 1,
-        RUB: 90,
-        KZT: 450
-    };
-    const result = (amount / rates[from]) * rates[to];
-    document.getElementById("result").textContent = result.toFixed(3);
+    fetch(`https://currency-converter-backend.onrender.com/convert?from=${from}&to=${to}&amount=${amount}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("result").textContent = data.result.toFixed(3);
+        })
+        .catch(error => {
+            document.getElementById("error").innerHTML = "Ошибка при запросе к серверу";
+            console.error(error);
+        });
 }
