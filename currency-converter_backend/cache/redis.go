@@ -3,6 +3,7 @@ package cache
 import (
 	"context"
 	"log"
+	"os"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -14,11 +15,18 @@ var (
 )
 
 func InitRedis() {
-	Rdb = redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
-		Password: "",
-		DB:       0,
-	})
+	redisURL := os.Getenv("REDIS_URL")
+	if redisURL == "" {
+		log.Fatal("REDIS_URL не задан")
+	}
+
+	opt, err := redis.ParseURL(redisURL)
+	if err != nil {
+		log.Fatalf("Ошибка парсинга REDIS_URL: %v", err)
+	}
+
+	Rdb = redis.NewClient(opt)
+
 	if err := Rdb.Ping(Ctx).Err(); err != nil {
 		log.Fatalf("Ошибка подключения к Redis: %v", err)
 	}
