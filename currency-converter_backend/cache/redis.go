@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -16,18 +17,20 @@ var (
 
 func InitRedis() {
 	redisURL := os.Getenv("REDIS_URL")
-	if redisURL == "" {
-		log.Fatal("REDIS_URL не задан")
+
+	// Если в строке есть повторное "redis://", отрезаем все до него
+	if idx := strings.Index(redisURL[1:], "redis://"); idx != -1 {
+		redisURL = redisURL[idx+1:] // +1 потому что мы искали со второго символа
 	}
 
-	log.Printf("REDIS_URL='%s'\n", redisURL)
+	log.Println("Исправленный REDIS_URL =", redisURL)
+
 	opt, err := redis.ParseURL(redisURL)
 	if err != nil {
 		log.Fatalf("Ошибка парсинга REDIS_URL: %v", err)
 	}
 
 	Rdb = redis.NewClient(opt)
-
 	if err := Rdb.Ping(Ctx).Err(); err != nil {
 		log.Fatalf("Ошибка подключения к Redis: %v", err)
 	}
