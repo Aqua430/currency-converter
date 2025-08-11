@@ -22,7 +22,7 @@ function checkForm(event){
 }
 
 function convert(amount, from, to) {
-    fetch(`https://currency-converter-production-2995.up.railway.app//convert?from=${from}&to=${to}&amount=${amount}`)
+    fetch(`https://currency-converter-production-2995.up.railway.app/convert?from=${from}&to=${to}&amount=${amount}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById("result").textContent = data.result.toFixed(3);
